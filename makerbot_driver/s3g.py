@@ -1477,6 +1477,8 @@ class s3g(object):
         @param int pid: PID for the bot you want to print to
         @param int checksum: Checksum for succeeding commands
         """
+        if isinstance(pid, (tuple, list)):
+            pid, vid = pid
         payload = struct.pack(
         '<BBBBIHBBBBBBBBBBB',
         makerbot_driver.host_action_command_dict['X3G_VERSION'],
