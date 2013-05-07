@@ -34,8 +34,16 @@ if sys.version < '2.6':
                      "supported. Sadly we will probably never support them :(")
 
 if sys.version >= '2.6' and sys.version < '3.0':
-    import makerbot_driver
-    version = makerbot_driver.__version__
+    try:
+        import makerbot_driver
+        version = makerbot_driver.__version__
+    except ImportError:
+        # pyserial is not yet installed
+        import re
+        import os
+        version = re.search(
+            "__version__.*'(.+)'",
+            open(os.path.join('makerbot_driver', '__init__.py')).read()).group(1)
 
 elif sys.version >= 3.0:
     import re
